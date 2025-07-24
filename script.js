@@ -8,6 +8,8 @@ const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
 const submitBtn = document.getElementById('submit-btn');
 const showScoreBtn = document.getElementById('show-score-btn');
+const backBtn = document.getElementById('back-to-last-btn');
+const retryBtn = document.getElementById('retry-btn');
 
 fetch('problems.json')
   .then(res => res.json())
@@ -130,6 +132,55 @@ showScoreBtn.addEventListener('click', () => {
   });
 
   resultDiv.innerHTML = `<h2>최종 점수: ${score} / ${problems.length}</h2>`;
+});
+
+// 점수 보기 버튼 클릭 시
+showScoreBtn.addEventListener('click', () => {
+  container.innerHTML = '';
+  resultDiv.innerHTML = '';
+
+  submitBtn.style.display = 'none';
+  prevBtn.style.display = 'none';
+  nextBtn.style.display = 'none';
+  showScoreBtn.style.display = 'none';
+
+  let score = 0;
+  problems.forEach((q, idx) => {
+    if (userAnswers[idx] === q.answer) score++;
+  });
+
+  resultDiv.innerHTML = `<h2>최종 점수: ${score} / ${problems.length}</h2>`;
+
+  // 👇 새로운 버튼 보이기
+  backBtn.style.display = 'inline-block';
+  retryBtn.style.display = 'inline-block';
+});
+
+// 🔙 마지막 문제로 돌아가기
+backBtn.addEventListener('click', () => {
+  currentIndex = problems.length - 1;
+  showQuestion();
+
+  // 다시 버튼 숨기고 기존 버튼 복원
+  backBtn.style.display = 'none';
+  retryBtn.style.display = 'none';
+  prevBtn.style.display = 'inline-block';
+  nextBtn.style.display = 'inline-block';
+  submitBtn.style.display = 'inline-block';
+});
+
+// 🔁 다시 풀기
+retryBtn.addEventListener('click', () => {
+  currentIndex = 0;
+  userAnswers = [];
+  showQuestion();
+
+  // 버튼 초기화
+  backBtn.style.display = 'none';
+  retryBtn.style.display = 'none';
+  prevBtn.style.display = 'inline-block';
+  nextBtn.style.display = 'inline-block';
+  submitBtn.style.display = 'inline-block';
 });
 
 // 초기 화면 표시
