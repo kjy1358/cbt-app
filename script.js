@@ -9,8 +9,12 @@ fetch('problems.json')
     showQuestion();
   });
 
+const container = document.getElementById('quiz-container');
+const submitBtn = document.getElementById('submit-btn');
+const resultDiv = document.getElementById('result');
+
 function showQuestion() {
-  const container = document.getElementById('quiz-container');
+  resultDiv.innerHTML = '';
   container.innerHTML = '';
 
   const q = problems[currentIndex];
@@ -36,54 +40,53 @@ function showQuestion() {
 
   container.appendChild(questionDiv);
 
-  const nextBtn = document.getElementById('submit-btn');
-  nextBtn.innerText = currentIndex === problems.length - 1 ? '결과 보기' : '다음 문제';
+  submitBtn.innerText = '제출하기';
+  submitBtn.disabled = false;
 }
 
-document.getElementById('submit-btn').addEventListener('click', () => {
-  const selected = document.querySelector('input[name="answer"]:checked');
-  if (!selected) {
-    alert('답을 선택해주세요.');
-    return;
-  }
+submitBtn.addEventListener('click', () => {
+  if (submitBtn.innerText === '제출하기') {
+    // 답 체크 후 정답/해설 보여주기 or 그냥 넘어가기
+    const selected = document.querySelector('input[name="answer"]:checked');
+    if (!selected) {
+      alert('답을 선택해주세요.');
+      return;
+    }
 
-  userAnswers[currentIndex] = parseInt(selected.value);
+    const userAns = parseInt(selected.value);
+    userAnswers[currentIndex] = userAns;
 
-  if (currentIndex < problems.length - 1) {
-    currentIndex++;
-    showQuestion();
-  } else {
-    showResult();
-  }
-});
-
-function showResult() {
-  const container = document.getElementById('quiz-container');
-  const resultDiv = document.getElementById('result');
-  const btn = document.getElementById('submit-btn');
-  
-  container.innerHTML = '';
-  btn.style.display = 'none';
-  resultDiv.innerHTML = '';
-
-  let score = 0;
-
-  problems.forEach((q, index) => {
-    const userAns = userAnswers[index];
+    const q = problems[currentIndex];
     const isCorrect = userAns === q.answer;
-    if (isCorrect) score++;
 
-    const result = document.createElement('div');
-    result.innerHTML = `
-      <p><strong>${index + 1}. ${q.question}</strong></p>
-      <p>당신의 답: ${userAns >= 0 ? q.options[userAns] : '선택 안함'}</p>
+    // 정답 및 해설 보여주기
+    resultDiv.innerHTML = `
+      <p>당신의 답: ${q.options[userAns]}</p>
       <p>정답: ${q.options[q.answer]}</p>
       <p>해설: ${q.explanation}</p>
       <p style="color:${isCorrect ? 'green' : 'red'}">${isCorrect ? '정답입니다!' : '틀렸습니다.'}</p>
-      <hr/>
     `;
-    resultDiv.appendChild(result);
+
+    submitBtn.innerText = currentIndex === problems.length - 1 ? '점수 보기' : '다음 문제';
+  } else if (submitBtn.innerText === '다음 문제') {
+    // 다음 문제로 이동
+    currentIndex++;
+    showQuestion();
+  } else if (submitBtn.innerText === '점수 보기') {
+    // 최종 점수 보여주기
+    showScore();
+  }
+});
+
+function showScore() {
+  container.innerHTML = '';
+  resultDiv.innerHTML = '';
+  submitBtn.style.display = 'none';
+
+  let score = 0;
+  problems.forEach((q, idx) => {
+    if (userAnswers[idx] === q.answer) score++;
   });
 
-  resultDiv.innerHTML = `<h2>결과: ${score} / ${problems.length} 점</h2>` + resultDiv.innerHTML;
+  resultDiv.innerHTML = `<h2>최종 점수: ${score} / ${problems.length}</h2>`;
 }
