@@ -1,56 +1,80 @@
 let problems = [];
+let currentIndex = 0;
 let userAnswers = [];
 
 fetch('problems.json')
   .then(res => res.json())
   .then(data => {
     problems = data;
-    renderQuiz();
+    showQuestion();
   });
 
-function renderQuiz() {
+function showQuestion() {
   const container = document.getElementById('quiz-container');
   container.innerHTML = '';
 
-  problems.forEach((q, index) => {
-    const questionDiv = document.createElement('div');
-    questionDiv.className = 'question';
+  const q = problems[currentIndex];
 
-    const title = document.createElement('p');
-    title.innerText = `${index + 1}. ${q.question}`;
-    questionDiv.appendChild(title);
+  const questionDiv = document.createElement('div');
+  questionDiv.className = 'question';
 
-    q.options.forEach((opt, optIndex) => {
-      const label = document.createElement('label');
-      const input = document.createElement('input');
-      input.type = 'radio';
-      input.name = `q${index}`;
-      input.value = optIndex;
-      label.appendChild(input);
-      label.append(` ${opt}`);
-      questionDiv.appendChild(label);
-      questionDiv.appendChild(document.createElement('br'));
-    });
+  const title = document.createElement('p');
+  title.innerText = `${currentIndex + 1}. ${q.question}`;
+  questionDiv.appendChild(title);
 
-    container.appendChild(questionDiv);
+  q.options.forEach((opt, optIndex) => {
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'answer';
+    input.value = optIndex;
+    label.appendChild(input);
+    label.append(` ${opt}`);
+    questionDiv.appendChild(label);
+    questionDiv.appendChild(document.createElement('br'));
   });
+
+  container.appendChild(questionDiv);
+
+  const nextBtn = document.getElementById('submit-btn');
+  nextBtn.innerText = currentIndex === problems.length - 1 ? '결과 보기' : '다음 문제';
 }
 
 document.getElementById('submit-btn').addEventListener('click', () => {
-  let score = 0;
+  const selected = document.querySelector('input[name="answer"]:checked');
+  if (!selected) {
+    alert('답을 선택해주세요.');
+    return;
+  }
+
+  userAnswers[currentIndex] = parseInt(selected.value);
+
+  if (currentIndex < problems.length - 1) {
+    currentIndex++;
+    showQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  const container = document.getElementById('quiz-container');
   const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = '<h2>결과</h2>';
+  const btn = document.getElementById('submit-btn');
+  
+  container.innerHTML = '';
+  btn.style.display = 'none';
+  resultDiv.innerHTML = '';
+
+  let score = 0;
 
   problems.forEach((q, index) => {
-    const selected = document.querySelector(`input[name="q${index}"]:checked`);
-    const userAns = selected ? parseInt(selected.value) : -1;
-    userAnswers.push(userAns);
-
+    const userAns = userAnswers[index];
     const isCorrect = userAns === q.answer;
     if (isCorrect) score++;
 
-    const feedback = document.createElement('div');
-    feedback.innerHTML = `
+    const result = document.createElement('div');
+    result.innerHTML = `
       <p><strong>${index + 1}. ${q.question}</strong></p>
       <p>당신의 답: ${userAns >= 0 ? q.options[userAns] : '선택 안함'}</p>
       <p>정답: ${q.options[q.answer]}</p>
@@ -58,8 +82,8 @@ document.getElementById('submit-btn').addEventListener('click', () => {
       <p style="color:${isCorrect ? 'green' : 'red'}">${isCorrect ? '정답입니다!' : '틀렸습니다.'}</p>
       <hr/>
     `;
-    resultDiv.appendChild(feedback);
+    resultDiv.appendChild(result);
   });
 
   resultDiv.innerHTML = `<h2>결과: ${score} / ${problems.length} 점</h2>` + resultDiv.innerHTML;
-});
+}
