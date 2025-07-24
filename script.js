@@ -140,10 +140,10 @@ submitBtn.addEventListener('click', () => {
       }
     } else {
       const sel = document.querySelector('input[name="answer"]:checked');
-      if (!sel) {
-        alert('답을 선택하세요.');
+      /*if (!sel) {
+        alert('정답을 선택하세요.');
         return;
-      }
+      }*/
       selected = parseInt(sel.value);
     }
 
