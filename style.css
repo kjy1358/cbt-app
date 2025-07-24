@@ -1,24 +1,32 @@
 body {
-  font-family: sans-serif;
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background: #f9f9f9;
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 15px;
 }
 
-.question {
-  margin-bottom: 1.5rem;
-  background: #fff;
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+.question p {
+  font-weight: bold;
 }
 
-#submit-btn {
-  padding: 10px 20px;
+label {
+  cursor: pointer;
+  display: block; /* 각 보기 세로 정렬 */
+  margin: 4px 0;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+button {
+  margin: 8px 8px 0 0;
+  padding: 8px 16px;
   font-size: 16px;
 }
 
-#result {
-  margin-top: 2rem;
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
