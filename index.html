@@ -9,16 +9,31 @@
 <body>
 
 <h1>CBT 문제풀이</h1>
+  <div id="subject-selection">
+  <h2>과목을 선택하세요</h2>
+  <button onclick="loadSubject('problems')">샘플 문항</button>
+  <button onclick="loadSubject('korean')">국어</button>
+</div>
+
+<div id="quiz-container" style="display:none;"></div>
+<div id="result"></div>
 <div id="quiz-container"></div>
 <div id="result"></div>
 
-<button id="prev-btn" disabled>이전 문제</button>
-<button id="next-btn">다음 문제</button>
-<button id="submit-btn">정답확인</button>
-<button id="show-score-btn" style="display:none;">점수 보기</button>
-<button id="back-to-last-btn" style="display:none;">이전 문제로 돌아가기</button>
-<button id="retry-btn" style="display:none;">다시 풀기</button>
+#<button id="prev-btn" disabled>이전 문제</button>
+#<button id="next-btn">다음 문제</button>
+#<button id="submit-btn">정답확인</button>
+#<button id="show-score-btn" style="display:none;">점수 보기</button>
+#<button id="back-to-last-btn" style="display:none;">이전 문제로 돌아가기</button>
+#<button id="retry-btn" style="display:none;">다시 풀기</button>
 
+  <!-- 버튼들 (처음에는 숨김) -->
+<button id="prev-btn" style="display:none;">이전 문제</button>
+<button id="next-btn" style="display:none;">다음 문제</button>
+<button id="submit-btn" style="display:none;">정답 확인</button>
+<button id="show-score-btn" style="display:none;">점수 보기</button>
+<button id="back-to-last-btn" style="display:none;">마지막 문제로</button>
+<button id="retry-btn" style="display:none;">다시 풀기</button>
 
   <div id="result"></div>
 
