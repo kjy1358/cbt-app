@@ -22,6 +22,29 @@ function arraysEqual(a, b) {
   return sa.every((v, i) => v === sb[i]);
 }
 
+// 배열 셔플 함수 (Fisher-Yates)
+function shuffleArray(array) {
+  for(let i = array.length -1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// 문제 JSON 파일 로딩
+fetch('problems.json')
+  .then(res => res.json())
+  .then(data => {
+    problems = shuffleArray(data);  // 문제 배열 셔플
+    currentIndex = 0;  // 인덱스 초기화
+    userAnswers = [];  // 답안 초기화
+    showQuestion();
+  })
+  .catch(err => {
+    container.innerHTML = '<p style="color:red;">문제 파일을 불러올 수 없습니다.</p>';
+    console.error(err);
+  });
+
 // 문제 출력 함수
 function showQuestion() {
   const q = problems[currentIndex]; // 현재 문제
@@ -203,15 +226,3 @@ retryBtn.addEventListener('click', () => {
   nextBtn.style.display = 'inline-block';
   submitBtn.style.display = 'inline-block';
 });
-
-// 문제 JSON 파일 로딩
-fetch('problems.json')
-  .then(res => res.json())
-  .then(data => {
-    problems = data;
-    showQuestion();
-  })
-  .catch(err => {
-    container.innerHTML = '<p style="color:red;">문제 파일을 불러올 수 없습니다.</p>';
-    console.error(err);
-  });
