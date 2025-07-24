@@ -31,6 +31,18 @@ function shuffleArray(array) {
   return array;
 }
 
+// 과목 선택 후 문제 불러오는 함수
+function loadSubject(subject) {
+  // UI 변경: 과목 선택 화면 숨기기, 문제 화면 보이기
+  document.getElementById('subject-selection').style.display = 'none';
+  container.style.display = 'block';
+  prevBtn.style.display = 'inline-block';
+  nextBtn.style.display = 'inline-block';
+  submitBtn.style.display = 'inline-block';
+
+  // 과목별 문제 파일 경로 예시
+  const fileName = `${subject}.json`;
+
 // 문제 JSON 파일 로딩
 fetch('problems.json')
   .then(res => res.json())
