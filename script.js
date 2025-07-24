@@ -252,6 +252,7 @@ backToSubjectBtn.addEventListener('click', () => {
 
   // UI 리셋
   container.style.display = 'none';
+  container.innerHTML = '';
   document.getElementById('subject-selection').style.display = 'block';
 
   // 버튼들 숨기기
@@ -260,5 +261,6 @@ backToSubjectBtn.addEventListener('click', () => {
   submitBtn.style.display = 'none';
   retryBtn.style.display = 'none';
   showScoreBtn.style.display = 'none';
+  backBtn.style.display = 'none';
   backToSubjectBtn.style.display = 'none';
 });
