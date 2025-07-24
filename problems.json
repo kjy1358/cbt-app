@@ -1,0 +1,14 @@
+[
+  {
+    "question": "1 + 1 = ?",
+    "options": ["1", "2", "3", "4"],
+    "answer": 1,
+    "explanation": "1 + 1은 2입니다."
+  },
+  {
+    "question": "HTML의 의미는?",
+    "options": ["HyperText Markup Language", "Hot Mail", "Hyperlink Text Management Language", "None"],
+    "answer": 0,
+    "explanation": "HTML은 웹 문서를 구성하는 언어입니다."
+  }
+]
