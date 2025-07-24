@@ -3,23 +3,40 @@ let currentIndex = 0;
 let userAnswers = [];
 
 const container = document.getElementById('quiz-container');
-const submitBtn = document.getElementById('submit-btn');
-const prevBtn = document.getElementById('prev-btn');
 const resultDiv = document.getElementById('result');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const submitBtn = document.getElementById('submit-btn');
+const showScoreBtn = document.getElementById('show-score-btn');
 
-fetch('problems.json')
-  .then(res => res.json())
-  .then(data => {
-    problems = data;
-    showQuestion();
-  });
+// 문제 예시 JSON (problems.json 대신 바로 변수로 넣어도 됨)
+problems = [
+  {
+    question: "대한민국의 수도는?",
+    options: ["부산", "서울", "대구", "인천"],
+    answer: 1,
+    explanation: "대한민국의 수도는 서울입니다."
+  },
+  {
+    question: "2 + 2는?",
+    options: ["3", "4", "5", "6"],
+    answer: 1,
+    explanation: "2 더하기 2는 4입니다."
+  },
+  {
+    question: "지구는 몇 번째 행성인가?",
+    options: ["1번째", "2번째", "3번째", "4번째"],
+    answer: 2,
+    explanation: "지구는 태양으로부터 세 번째 행성입니다."
+  }
+];
 
+// 문제 화면 표시 함수
 function showQuestion() {
-  resultDiv.innerHTML = '';
   container.innerHTML = '';
+  resultDiv.innerHTML = '';
 
   const q = problems[currentIndex];
-
   const questionDiv = document.createElement('div');
   questionDiv.className = 'question';
 
@@ -27,20 +44,21 @@ function showQuestion() {
   title.innerText = `${currentIndex + 1}. ${q.question}`;
   questionDiv.appendChild(title);
 
-  q.options.forEach((opt, optIndex) => {
+  q.options.forEach((opt, idx) => {
     const label = document.createElement('label');
     const input = document.createElement('input');
     input.type = 'radio';
     input.name = 'answer';
-    input.value = optIndex;
+    input.value = idx;
 
+    // 답 변경 시 정답/해설 숨기고 제출 버튼 초기화
     input.addEventListener('change', () => {
       resultDiv.innerHTML = '';
       submitBtn.innerText = '제출하기';
       submitBtn.disabled = false;
     });
 
-    if (userAnswers[currentIndex] === optIndex) {
+    if (userAnswers[currentIndex] === idx) {
       input.checked = true;
     }
 
@@ -52,31 +70,27 @@ function showQuestion() {
 
   container.appendChild(questionDiv);
 
+  // 버튼 상태 업데이트
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === problems.length - 1;
+  submitBtn.style.display = 'inline-block';
   submitBtn.innerText = '제출하기';
   submitBtn.disabled = false;
-  submitBtn.style.display = 'inline-block';
-
-  // 이전 버튼 활성화/비활성화
-  prevBtn.disabled = currentIndex === 0;
-
-  // 결과와 버튼 초기화
-  resultDiv.innerHTML = '';
+  showScoreBtn.style.display = 'none';
 }
 
-// 제출 / 숨기기 / 점수 보기 버튼 이벤트
+// 제출 버튼 이벤트
 submitBtn.addEventListener('click', () => {
-  const q = problems[currentIndex];
-
   if (submitBtn.innerText === '제출하기') {
     const selected = document.querySelector('input[name="answer"]:checked');
     if (!selected) {
       alert('답을 선택해주세요.');
       return;
     }
-
     const userAns = parseInt(selected.value);
     userAnswers[currentIndex] = userAns;
 
+    const q = problems[currentIndex];
     const isCorrect = userAns === q.answer;
 
     resultDiv.innerHTML = `
@@ -86,16 +100,20 @@ submitBtn.addEventListener('click', () => {
       <p style="color:${isCorrect ? 'green' : 'red'}">${isCorrect ? '정답입니다!' : '틀렸습니다.'}</p>
     `;
 
-    submitBtn.innerText = currentIndex === problems.length - 1 ? '점수 보기' : '숨기기';
+    submitBtn.innerText = '숨기기';
+
+    // 마지막 문제면 다음버튼 비활성화, 점수 보기 버튼 활성화
+    if (currentIndex === problems.length - 1) {
+      nextBtn.disabled = true;
+      showScoreBtn.style.display = 'inline-block';
+    }
   } else if (submitBtn.innerText === '숨기기') {
     resultDiv.innerHTML = '';
     submitBtn.innerText = '제출하기';
-  } else if (submitBtn.innerText === '점수 보기') {
-    showScore();
   }
 });
 
-// 이전 문제 버튼 이벤트
+// 이전 버튼 이벤트
 prevBtn.addEventListener('click', () => {
   if (currentIndex > 0) {
     currentIndex--;
@@ -103,11 +121,23 @@ prevBtn.addEventListener('click', () => {
   }
 });
 
-function showScore() {
+// 다음 버튼 이벤트
+nextBtn.addEventListener('click', () => {
+  if (currentIndex < problems.length - 1) {
+    currentIndex++;
+    showQuestion();
+  }
+});
+
+// 점수 보기 버튼 이벤트
+showScoreBtn.addEventListener('click', () => {
   container.innerHTML = '';
   resultDiv.innerHTML = '';
+
   submitBtn.style.display = 'none';
   prevBtn.style.display = 'none';
+  nextBtn.style.display = 'none';
+  showScoreBtn.style.display = 'none';
 
   let score = 0;
   problems.forEach((q, idx) => {
@@ -115,4 +145,7 @@ function showScore() {
   });
 
   resultDiv.innerHTML = `<h2>최종 점수: ${score} / ${problems.length}</h2>`;
-}
+});
+
+// 초기 화면 표시
+showQuestion();
