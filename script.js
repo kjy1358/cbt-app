@@ -9,28 +9,6 @@ const nextBtn = document.getElementById('next-btn');
 const submitBtn = document.getElementById('submit-btn');
 const showScoreBtn = document.getElementById('show-score-btn');
 
-// 문제 예시 JSON (problems.json 대신 바로 변수로 넣어도 됨)
-problems = [
-  {
-    question: "대한민국의 수도는?",
-    options: ["부산", "서울", "대구", "인천"],
-    answer: 1,
-    explanation: "대한민국의 수도는 서울입니다."
-  },
-  {
-    question: "2 + 2는?",
-    options: ["3", "4", "5", "6"],
-    answer: 1,
-    explanation: "2 더하기 2는 4입니다."
-  },
-  {
-    question: "지구는 몇 번째 행성인가?",
-    options: ["1번째", "2번째", "3번째", "4번째"],
-    answer: 2,
-    explanation: "지구는 태양으로부터 세 번째 행성입니다."
-  }
-];
-
 // 문제 화면 표시 함수
 function showQuestion() {
   container.innerHTML = '';
