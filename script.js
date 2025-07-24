@@ -217,6 +217,7 @@ backBtn.addEventListener('click', () => {
 
 // 다시 풀기
 retryBtn.addEventListener('click', () => {
+  problems = shuffleArray(problems);
   currentIndex = 0;
   userAnswers = [];
   showQuestion();
