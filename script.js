@@ -44,7 +44,7 @@ function loadSubject(subject) {
   const fileName = `${subject}.json`;
 
 // 문제 JSON 파일 로딩
-fetch('problems.json')
+fetch(fileName)
   .then(res => res.json())
   .then(data => {
     problems = shuffleArray(data);  // 문제 배열 셔플
