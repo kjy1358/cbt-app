@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>CBT 문제풀이</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CBT 문제풀이</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 0 15px; }
+  .question p { font-weight: bold; }
+  label { cursor: pointer; }
+  #quiz-container { margin-bottom: 20px; }
+  #result p { margin: 5px 0; }
+  button { margin-right: 10px; padding: 8px 16px; font-size: 16px; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+</style>
 </head>
 <body>
-  <h1>CBT 문제풀이</h1>
-  <div id="quiz-container"></div>
+
+<h1>CBT 문제풀이</h1>
+<div id="quiz-container"></div>
+<div id="result"></div>
+
 <button id="prev-btn" disabled>이전 문제</button>
 <button id="next-btn">다음 문제</button>
 <button id="submit-btn">제출하기</button>
+<button id="show-score-btn" style="display:none;">점수 보기</button>
 
   <div id="result"></div>
 
