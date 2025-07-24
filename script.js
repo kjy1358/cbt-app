@@ -253,6 +253,7 @@ backToSubjectBtn.addEventListener('click', () => {
   // UI 리셋
   container.style.display = 'none';
   container.innerHTML = '';
+  resultDiv.innerHTML = '';
   document.getElementById('subject-selection').style.display = 'block';
 
   // 버튼들 숨기기
