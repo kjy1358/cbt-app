@@ -56,6 +56,17 @@ fetch(fileName)
   .catch(err => {
     container.innerHTML = '<p style="color:red;">문제 파일을 불러올 수 없습니다.</p>';
     console.error(err);
+    // UI 표시
+    container.style.display = 'block';
+    backToSubjectBtn.style.display = 'inline-block';  // ✅ 버튼 보이기
+
+    // 다른 버튼들은 숨김 처리
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    submitBtn.style.display = 'none';
+    retryBtn.style.display = 'none';
+    showScoreBtn.style.display = 'none';
+    backBtn.style.display = 'none';
   });
 }
 
