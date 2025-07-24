@@ -55,7 +55,7 @@ function showQuestion() {
     // 선택 변경 시 정답 숨기기
     input.addEventListener('change', () => {
       resultDiv.innerHTML = '';
-      submitBtn.innerText = '제출하기';
+      submitBtn.innerText = '정답확인';
     });
 
     label.appendChild(input);
@@ -69,7 +69,7 @@ function showQuestion() {
   prevBtn.disabled = currentIndex === 0;
   nextBtn.disabled = currentIndex === problems.length - 1;
   submitBtn.style.display = 'inline-block';
-  submitBtn.innerText = '제출하기';
+  submitBtn.innerText = '정답확인';
   submitBtn.disabled = false;
   showScoreBtn.style.display = 'none';
 }
@@ -79,7 +79,7 @@ submitBtn.addEventListener('click', () => {
   const q = problems[currentIndex];
   const isMultiple = Array.isArray(q.answer);
 
-  if (submitBtn.innerText === '제출하기') {
+  if (submitBtn.innerText === '정답확인') {
     let selected;
 
     // 사용자 선택값 수집
@@ -135,7 +135,7 @@ submitBtn.addEventListener('click', () => {
   } else {
     // 정답 숨기기
     resultDiv.innerHTML = '';
-    submitBtn.innerText = '제출하기';
+    submitBtn.innerText = '정답확인';
   }
 });
 
