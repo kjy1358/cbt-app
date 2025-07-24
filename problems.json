@@ -1,7 +1,7 @@
 [
   {
     "question": "Which of the following commands erases the contents of the /dev/sdb3 partition?",
-    "options": ["rm /dev/sdb3", "dd if=/dev/zero of=/dev/sdb3", "dd of=/dev/zero if=/dev/sdb3", "umount /dev/sdb3?umount /dev/sdb3?"],
+    "options": ["rm /dev/sdb3", "dd if=/dev/zero of=/dev/sdb3", "dd of=/dev/zero if=/dev/sdb3", "umount /dev/sdb3"],
     "answer": 1,
     "explanation": ""
   },
