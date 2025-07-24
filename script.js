@@ -56,6 +56,7 @@ fetch(fileName)
     container.innerHTML = '<p style="color:red;">문제 파일을 불러올 수 없습니다.</p>';
     console.error(err);
   });
+}
 
 // 문제 출력 함수
 function showQuestion() {
