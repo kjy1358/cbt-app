@@ -12,6 +12,7 @@ const submitBtn = document.getElementById('submit-btn');
 const showScoreBtn = document.getElementById('show-score-btn');
 const backBtn = document.getElementById('back-to-last-btn');
 const retryBtn = document.getElementById('retry-btn');
+const backToSubjectBtn = document.getElementById('back-to-subject-btn');
 
 // 배열 비교 함수 (복수정답 비교용)
 function arraysEqual(a, b) {
@@ -215,6 +216,7 @@ showScoreBtn.addEventListener('click', () => {
   resultDiv.innerHTML = `<h2>최종 점수: ${score} / ${problems.length}</h2>`;
   backBtn.style.display = 'inline-block';
   retryBtn.style.display = 'inline-block';
+  backToSubjectBtn.style.display = 'inline-block';
 });
 
 // 마지막 문제로 돌아가기
@@ -239,4 +241,24 @@ retryBtn.addEventListener('click', () => {
   prevBtn.style.display = 'inline-block';
   nextBtn.style.display = 'inline-block';
   submitBtn.style.display = 'inline-block';
+});
+
+// 과목 선택
+backToSubjectBtn.addEventListener('click', () => {
+  // 상태 초기화
+  problems = [];
+  currentIndex = 0;
+  userAnswers = [];
+
+  // UI 리셋
+  container.style.display = 'none';
+  document.getElementById('subject-selection').style.display = 'block';
+
+  // 버튼들 숨기기
+  prevBtn.style.display = 'none';
+  nextBtn.style.display = 'none';
+  submitBtn.style.display = 'none';
+  retryBtn.style.display = 'none';
+  showScoreBtn.style.display = 'none';
+  backToSubjectBtn.style.display = 'none';
 });
