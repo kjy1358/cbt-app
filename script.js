@@ -9,6 +9,13 @@ const nextBtn = document.getElementById('next-btn');
 const submitBtn = document.getElementById('submit-btn');
 const showScoreBtn = document.getElementById('show-score-btn');
 
+fetch('problems.json')
+  .then(res => res.json())
+  .then(data => {
+    problems = data;
+    showQuestion();
+  });
+
 // 문제 화면 표시 함수
 function showQuestion() {
   container.innerHTML = '';
