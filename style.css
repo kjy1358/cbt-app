@@ -13,6 +13,7 @@ label {
   cursor: pointer;
   display: block; /* 각 보기 세로 정렬 */
   margin: 4px 0;
+  max-width: 100%;           /* 텍스트가 라디오 버튼 옆에서 시작하게 최대 폭을 제한 */
 }
 
 input[type="radio"],
