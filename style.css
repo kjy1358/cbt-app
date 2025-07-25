@@ -13,7 +13,6 @@ label {
   cursor: pointer;
   display: block; /* 각 보기 세로 정렬 */
   margin: 4px 0;
-  align-items: center; /* 수직 중앙 정렬 */
 }
 
 input[type="radio"],
