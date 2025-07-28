@@ -236,6 +236,7 @@ backBtn.addEventListener('click', () => {
   showQuestion();
   backBtn.style.display = 'none';
   retryBtn.style.display = 'none';
+  backToSubjectBtn.style.display = 'none';
   prevBtn.style.display = 'inline-block';
   nextBtn.style.display = 'inline-block';
   submitBtn.style.display = 'inline-block';
@@ -249,6 +250,7 @@ retryBtn.addEventListener('click', () => {
   showQuestion();
   backBtn.style.display = 'none';
   retryBtn.style.display = 'none';
+  backToSubjectBtn.style.display = 'none';
   prevBtn.style.display = 'inline-block';
   nextBtn.style.display = 'inline-block';
   submitBtn.style.display = 'inline-block';
