@@ -4,7 +4,7 @@
 <style>
 #f {
   font-size: 10em;
-  transition: color 1s ease-in-out;
+  transition: color 0.7s cubic-bezier(0.645, 0.045, 0.355, 1); /* 자연스러운 감속/가속 */
 }
 </style>
 </head>
@@ -30,7 +30,7 @@ window.onload = function() {
   setInterval(() => {
     element.style.color = colors[index];
     index = (index + 1) % colors.length;
-  }, 300); // 0.3초마다 전환
+  }, 800); // 0.8초마다 전환 (transition 시간보다 약간 길게)
 }
 </script>
 
