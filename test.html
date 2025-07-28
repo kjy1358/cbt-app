@@ -1,0 +1,22 @@
+<html>
+<head>
+<style type="text/css">
+font { font-size:10em; } 
+</style> 
+<script>
+var array=["red","yellow","green"]; 
+var cnt=0; window.onload=function(){ 
+ff(); 
+}
+
+function ff(){
+if(cnt==3) cnt=0;
+f.style.color=array[cnt++];
+setTimeout("ff()",500);
+} 
+</script>
+</head>
+<body>
+<font id="f">글자</font> 
+</body>
+</html>
